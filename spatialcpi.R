@@ -45,3 +45,14 @@ crossproduct <- function(primary, secondary) {
 }
 
 cross_expenditure <- crossproduct(pmat, smat)
+
+#### PAASCHE INDEX ####
+## c for current country, b for based country
+paasche <- matrix(nrow = group, ncol = group)
+
+for (c in 1:group) {
+    for (b in 1:group) {
+        paasche [c, b] <- cross_expenditure[c, c] / cross_expenditure[b, c]
+    }
+}
+paasche

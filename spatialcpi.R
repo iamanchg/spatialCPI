@@ -45,3 +45,58 @@ crossproduct <- function(primary, secondary) {
 }
 
 cross_expenditure <- crossproduct(pmat, smat)
+
+#### EDGEWORTH-MARSHALL INDEX ####
+
+# Derive the dimension of average secondaries
+amdimension <- choose(group, 2)
+
+# compute for the arithmetic mean of the secondary
+i <- 1 ## initialization
+
+arithmean <- matrix(nrow = obs, ncol = amdimension)
+
+for (c in 1:group) {
+    for (b in 1:group) {
+        if (c < b) {
+            arithmean[, i] <- (smat[, b] + smat[, c]) / 2
+            i <- i + 1
+        }
+    }
+}
+
+sumem <- crossproduct(pmat, arithmean)
+
+edgeworth_marshall <- matrix(nrow = group, ncol = group)
+
+ctru <- 1
+ctrd <- 1
+ctrm <- 1
+
+# upper triangular matrix (up)
+for (c in 1:group) {
+    for (b in 1:group) {
+        if (c < b) {
+            edgeworth_marshall[c, b] <- sumem[c, ctru] / sumem[b, ctru]
+            ctru <- ctru + 1
+        }
+    }
+}
+
+# lower triangular matrix (down)
+for (b in 1:group) {
+    for (c in 1:group) {
+        if (c > b) {
+            edgeworth_marshall[c, b] <- sumem[c, ctrd] / sumem[b, ctrd]
+            ctrd <- ctrd + 1
+        }
+    }
+}
+
+# for the main diagonal (middle)
+for (m in 1:group) {
+    edgeworth_marshall[m, m] <- sumem[m, ctrm] / sumem[m, ctrm]
+    ctrm <- ctrm + 1
+}
+
+edgeworth_marshall

@@ -45,35 +45,3 @@ crossproduct <- function(primary, secondary) {
 }
 
 cross_expenditure <- crossproduct(pmat, smat)
-
-#### FISHER INDEX ####
-
-## Fisher index requires Laspeyres's and Paasche's
-
-# compute laspeyres's and paasche's indices first
-
-laspeyres <- matrix(nrow = group, ncol = group)
-paasche <- matrix(nrow = group, ncol = group)
-
-for (c in 1:group) {
-    for (b in 1:group) {
-        laspeyres[c, b] <- cross_expenditure[c, b] / cross_expenditure[b, b]
-    }
-}
-
-for (c in 1:group) {
-    for (b in 1:group) {
-        paasche[c, b] <- cross_expenditure[c, c] / cross_expenditure[b, c]
-    }
-}
-
-# Fisher Index
-
-fisher <- matrix(nrow = group, ncol = group)
-
-for (c in 1:group) {
-    for (b in 1:group) {
-        fisher[c, b] <- (laspeyres[c, b] * paasche[c, b]) ^ (0.5)
-    }
-}
-fisher

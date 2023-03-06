@@ -16,3 +16,25 @@ obs <- data$Commodity
 
 # Deriving the quantity values
 data$Quantity <- exp / data$Price
+
+
+#############################NOTE#################################
+# in solving any "price" index, primary:price::secondary:quantity
+# else, primary:quantity::secondary:price
+# in this code, we will solve the price indices of the following
+##################################################################
+
+primary <- data$Price
+secondary <- data$Quantity
+
+## before we can turn it into matrices, we need the size of dimension
+group_unique <- unique(group) # list all the unique countries involved
+obs_unique <- unique(obs) # list all the unique commodities
+
+## we are not interested with the list, but on the number of elements
+group <- length(group_unique)
+obs <- length(obs_unique)
+
+## matrix can be made using array()
+pmat <- array(primary, dim = c(obs, group)) # pmat for primary matrix
+smat <- array(secondary, dim = c(obs, group)) # smat for secondary matrix

@@ -38,3 +38,10 @@ obs <- length(obs_unique)
 ## matrix can be made using array()
 pmat <- array(primary, dim = c(obs, group)) # pmat for primary matrix
 smat <- array(secondary, dim = c(obs, group)) # smat for secondary matrix
+
+## cross-country expenditure solver
+crossproduct <- function(primary, secondary) {
+    crossprod((primary), (secondary))
+}
+
+cross_expenditure <- crossproduct(pmat, smat)

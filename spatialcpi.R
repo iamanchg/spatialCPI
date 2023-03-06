@@ -45,3 +45,13 @@ crossproduct <- function(primary, secondary) {
 }
 
 cross_expenditure <- crossproduct(pmat, smat)
+
+#### LASPEYRES INDEX ####
+## c for current country, b for based country
+laspeyres <- matrix(nrow = group, ncol = group)
+for (c in 1:group) {
+    for (b in 1:group) {
+        laspeyres[c, b] <- cross_expenditure[c, b] / cross_expenditure[b, b]
+    }
+}
+laspeyres

@@ -2,5 +2,8 @@
 library(readxl) ## to read .xlsx files
 library(combinat) ## to use combinatrics
 
-# Import data
+# import data
 data <- read_excel("./data5.xlsx")
+
+# to extend the limited print output
+options(max.print = 10^8)

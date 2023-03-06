@@ -12,3 +12,7 @@ options(max.print = 10^8)
 exp <- data$Expenditure
 group <- data$Country
 obs <- data$Commodity
+
+
+# Deriving the quantity values
+data$Quantity <- exp / data$Price
